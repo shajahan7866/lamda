@@ -173,33 +173,53 @@ Resources:
       SubnetId: !Ref PrivateSubnet2
 
   InstanceSecurityGroup:
-  Type: AWS::EC2::SecurityGroup
-  Properties:
-    GroupDescription: Allow http to client host
-    VpcId: !Ref VPC
-    SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: 80
-        ToPort: 80
-        CidrIp: 0.0.0.0/0
-    SecurityGroupEgress:
-      - IpProtocol: tcp
-        FromPort: 22
-        ToPort: 22
-        CidrIp: 0.0.0.0/0
-    Tags:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow http to client host
+      VpcId: !Ref VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
         - Key: Name
           Value: InstanceSecurityGroup
+
+  NewKeyPair:
+    Type: 'AWS::EC2::KeyPair'
+    Properties:
+      KeyName: MyKeyPair
+
+  myENI:
+    Type: AWS::EC2::NetworkInterface
+      Properties:
+         Tags:
+         - Key: Name
+           Value: webEni
+         Description: creation of ENI.
+         SourceDestCheck: 'false'
+         GroupSet: !Ref InstanceSecurityGroup  
+         SubnetId: !Ref PublicSubnet1
+         PrivateIpAddress: !Ref PrivateSubnet1
 
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: ami-0607784b46cbe5816
       InstanceType: t2.micro
+      KeyName: !Ref NewKeyPair
       DisableApiTermination: false    
-      NetworkInterfaces:
-        - AssociatePublicIpAddress: false
-          DeviceIndex: "0"
+      NetworkInterfaces:x
+        - NetworkInterfaceId:
+         Ref: myENI
+        - AssociatePublicIpAddress: true
+          DeviceIndex: "1"
           SubnetId: !Ref PublicSubnet1
           GroupSet:
             - !Ref InstanceSecurityGroup

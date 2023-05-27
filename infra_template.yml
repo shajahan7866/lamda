@@ -212,9 +212,8 @@ Resources:
       InstanceType: t2.micro
       KeyName: !Ref NewKeyPair
       DisableApiTermination: false    
-      NetworkInterfaces:x
-        - NetworkInterfaceId:
-         Ref: myENI
+      NetworkInterfaces:
+        - NetworkInterfaceId: !Ref myENI
         - AssociatePublicIpAddress: true
           DeviceIndex: "1"
           SubnetId: !Ref PublicSubnet1

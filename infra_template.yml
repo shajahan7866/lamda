@@ -199,9 +199,6 @@ Resources:
   myENI:
     Type: AWS::EC2::NetworkInterface
       Properties:
-         Tags:
-         - Key: Name
-           Value: webEni
          Description: creation of ENI.
          SourceDestCheck: 'false'
          GroupSet: !Ref InstanceSecurityGroup  

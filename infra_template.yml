@@ -191,15 +191,6 @@ Resources:
         - Key: Name
           Value: InstanceSecurityGroup
 
-  myENI:
-    Type: AWS::EC2::NetworkInterface
-      Properties:
-         Description: creation of ENI.
-         SourceDestCheck: false
-         GroupSet: !Ref InstanceSecurityGroup  
-         SubnetId: !Ref PublicSubnet1
-         PrivateIpAddress: !Ref PrivateSubnet1
-
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
@@ -207,7 +198,6 @@ Resources:
       InstanceType: t2.micro
       DisableApiTermination: false    
       NetworkInterfaces:
-        - NetworkInterfaceId: !Ref myENI
         - AssociatePublicIpAddress: true
           DeviceIndex: "1"
           SubnetId: !Ref PublicSubnet1

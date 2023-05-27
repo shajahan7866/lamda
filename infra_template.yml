@@ -191,11 +191,6 @@ Resources:
         - Key: Name
           Value: InstanceSecurityGroup
 
-  NewKeyPair:
-    Type: 'AWS::EC2::KeyPair'
-    Properties:
-      KeyName: MyKeyPair
-
   myENI:
     Type: AWS::EC2::NetworkInterface
       Properties:
@@ -210,7 +205,6 @@ Resources:
     Properties:
       ImageId: ami-0607784b46cbe5816
       InstanceType: t2.micro
-      KeyName: !Ref NewKeyPair
       DisableApiTermination: false    
       NetworkInterfaces:
         - NetworkInterfaceId: !Ref myENI

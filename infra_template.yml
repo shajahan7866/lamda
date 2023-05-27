@@ -200,7 +200,7 @@ Resources:
     Type: AWS::EC2::NetworkInterface
       Properties:
          Description: creation of ENI.
-         SourceDestCheck: 'false'
+         SourceDestCheck: false
          GroupSet: !Ref InstanceSecurityGroup  
          SubnetId: !Ref PublicSubnet1
          PrivateIpAddress: !Ref PrivateSubnet1

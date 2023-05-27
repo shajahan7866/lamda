@@ -199,7 +199,7 @@ Resources:
       DisableApiTermination: false    
       NetworkInterfaces:
         - AssociatePublicIpAddress: true
-          DeviceIndex: "1"
+          DeviceIndex: "0"
           SubnetId: !Ref PublicSubnet1
           GroupSet:
             - !Ref InstanceSecurityGroup
